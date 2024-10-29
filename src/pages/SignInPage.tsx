@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { useSignIn } from "../queries/AuthQueries";
 import { ISignInDto } from "../services/auth/auth.interface";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
-import { observer } from "mobx-react-lite";
+import { useSignIn } from "../hooks/useSignIn";
 
-const SignInPage = observer(() => {
+const SignInPage = () => {
   const {
     register: formRegister,
     handleSubmit,
@@ -111,6 +110,6 @@ const SignInPage = observer(() => {
       </form>
     </div>
   );
-});
+};
 
 export default SignInPage;

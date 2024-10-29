@@ -1,10 +1,9 @@
-import { observer } from "mobx-react-lite";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ISignUpDto } from "../services/auth/auth.interface";
 import { Link } from "react-router-dom";
-import { useSignUp } from "../queries/AuthQueries";
+import { useSignUp } from "../hooks/useSignUp";
 
-const SignUpPage = observer(() => {
+const SignUpPage = () => {
   const {
     register: formRegister,
     handleSubmit,
@@ -75,6 +74,6 @@ const SignUpPage = observer(() => {
       </form>
     </div>
   );
-});
+};
 
 export default SignUpPage;

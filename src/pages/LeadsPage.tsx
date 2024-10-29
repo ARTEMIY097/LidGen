@@ -1,6 +1,6 @@
 import AddNewLeadModal from "../components/modals/AddNewLeadModal/AddNewLeadModal";
-import LeadsFilters from "../components/ui/LeadsFilters/LeadsFilters";
-import LeadsTable from "../components/ui/LeadsTable/LeadsTable";
+import LeadsFilters from "../components/ui/Leads/LeadsFilters/LeadsFilters";
+import LeadsTable from "../components/ui/Leads/LeadsTable/LeadsTable";
 import PaginationComponent from "../components/ui/Pagination/PaginationComponent";
 
 const LeadsPage = () => {

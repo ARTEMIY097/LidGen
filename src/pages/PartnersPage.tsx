@@ -1,6 +1,6 @@
 import PaginationComponent from "../components/ui/Pagination/PaginationComponent";
-import PartnerFilters from "../components/ui/PartnerFilters/PartnerFilters";
-import PartnersTable from "../components/ui/PartnersTable/PartnersTable";
+import PartnerFilters from "../components/ui/Partners/PartnerFilters/PartnerFilters";
+import PartnersTable from "../components/ui/Partners/PartnersTable/PartnersTable";
 
 const PartnerPage = () => {
   return (

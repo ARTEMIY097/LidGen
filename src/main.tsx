@@ -1,4 +1,3 @@
-// import { lazy } from "react";
 import { createRoot } from "react-dom/client";
 
 import "./index.css";
@@ -13,25 +12,30 @@ import PartnersPage from "./pages/PartnersPage";
 import LeadsPage from "./pages/LeadsPage";
 import PaymentsPage from "./pages/PaymentsPage";
 import ReferalPage from "./pages/ReferalPage";
-import { Provider } from "mobx-react";
-import { authStore } from "./store/AuthStore";
-import { userStore } from "./store/UserStore";
-import { partnersStore } from "./store/PartnersStore";
 import SignUpPage from "./pages/SignUpPage";
 import AuthPage from "./pages/AuthPage";
 import SignInPage from "./pages/SignInPage";
-import { leadsStore } from "./store/LeadsStore";
-import MockPage from "./pages/MockPage";
+import { lazy, Suspense } from "react";
+import { AuthProvider } from "./providers/AuthProvider";
+import ProfilePage from "./pages/ProfilePage";
+import SubscriptionPage from "./pages/SubscriptionPage";
 
-// const ReactQueryDevtoolsProduction = lazy(() =>
-//   import("@tanstack/react-query-devtools/build/modern/production.js").then(
-//     (d) => ({
-//       default: d.ReactQueryDevtools,
-//     })
-//   )
-// );
+// eslint-disable-next-line react-refresh/only-export-components
+const ReactQueryDevtoolsProduction = lazy(() =>
+  import("@tanstack/react-query-devtools/build/modern/production.js").then(
+    (d) => ({
+      default: d.ReactQueryDevtools,
+    })
+  )
+);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000, // 1 minutes
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -40,10 +44,6 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MockPage />,
-      },
-      {
-        path: "partners",
         element: <PartnersPage />,
       },
       {
@@ -57,6 +57,14 @@ const router = createBrowserRouter([
       {
         path: "referal_program",
         element: <ReferalPage />,
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "subscription",
+        element: <SubscriptionPage />,
       },
     ],
   },
@@ -77,36 +85,29 @@ const router = createBrowserRouter([
 
 const helmetContext = {};
 
-const stores = {
-  authStore,
-  userStore,
-  partnersStore,
-  leadsStore,
-};
-
 createRoot(document.getElementById("root")!).render(
-  // <StrictMode>
-  <Provider {...stores}>
-    <QueryClientProvider client={queryClient}>
-      <HelmetProvider context={helmetContext}>
+  <QueryClientProvider client={queryClient}>
+    <HelmetProvider context={helmetContext}>
+      <AuthProvider>
         <RouterProvider router={router} />
-        <ToastContainer
-          position="bottom-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          transition={Bounce}
-          stacked
-        />
-        {/* <ReactQueryDevtoolsProduction /> */}
-      </HelmetProvider>
-    </QueryClientProvider>
-  </Provider>
-  // </StrictMode>
+      </AuthProvider>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+        stacked
+      />
+      <Suspense>
+        <ReactQueryDevtoolsProduction />
+      </Suspense>
+    </HelmetProvider>
+  </QueryClientProvider>
 );

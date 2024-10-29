@@ -6,6 +6,16 @@ export interface INewLeadDto {
   comment: string;
 }
 
+export interface ITransaction {
+  id: string;
+  date: string;
+  status: {
+    name: string;
+    value: string;
+  };
+  amount: string;
+}
+
 export interface ILead {
   id: string;
   name: string;
@@ -16,4 +26,5 @@ export interface ILead {
   status: string;
   offer: string;
   totalSelling: string;
+  transactions: ITransaction[];
 }

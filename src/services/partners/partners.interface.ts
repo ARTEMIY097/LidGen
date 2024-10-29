@@ -3,7 +3,10 @@ export interface IPartner {
   name: string;
   date: string;
   leadCount: ILeadCount;
-  status: string;
+  status: {
+    name: string;
+    value: string;
+  };
   totalReward: string;
   balance: string;
 }

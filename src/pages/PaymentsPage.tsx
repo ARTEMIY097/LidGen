@@ -1,8 +1,8 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import PaymentStatistic from "../components/ui/PaymentStatistic/PaymentStatistic";
-import ApplicationsPayments from "../components/ui/ApplicationsPayments/ApplicationsPayments";
+import PaymentStatistic from "../components/ui/Payment/PaymentStatistic/PaymentStatistic";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import PaymentHistory from "../components/ui/PaymentHistory/PaymentHistory";
+import PaymentHistory from "../components/ui/Payment/PaymentHistory/PaymentHistory";
+import ApplicationsPayments from "../components/ui/Payment/ApplicationsPayments/ApplicationsPayments";
 
 const tabs = [
   {
@@ -40,11 +40,11 @@ const PaymentsPage = () => {
       </header>
       <div className="w-full">
         <TabGroup>
-          <TabList className="tabs tabs-bordered max-w-lg">
+          <TabList className="tabs tabs-lg tabs-bordered max-w-lg">
             {tabs.map((tab) => (
               <Tab
                 key={tab.id}
-                className="tab text-neutral data-[selected]:tab-active data-[selected]:text-primary focus:outline-none data-[focus]:outline-none duration-300"
+                className="tab text-neutral font-bold text-nowrap outline-none data-[selected]:tab-active data-[selected]:text-primary focus:outline-none data-[focus]:outline-none duration-300"
               >
                 {tab.name}
               </Tab>

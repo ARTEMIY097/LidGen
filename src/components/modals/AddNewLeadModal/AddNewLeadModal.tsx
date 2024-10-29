@@ -7,9 +7,27 @@ import {
 import { useState } from "react";
 import { INewLeadDto } from "../../../services/leads/leads.interface";
 import { SubmitHandler, useForm } from "react-hook-form";
+import ListSelect, { ListSelectOption } from "../../ui/ListSelect/ListSelect";
+
+const partners: ListSelectOption[] = [
+  { id: 0, name: "Partner 1" },
+  { id: 1, name: "Partner 2" },
+  { id: 2, name: "Partner 3" },
+];
+
+const sources: ListSelectOption[] = [
+  { id: 0, name: "Referal link" },
+  { id: 1, name: "Direct addition" },
+];
 
 const AddNewLeadModal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedPartner, setSelectedPartner] =
+    useState<ListSelectOption | null>(null);
+
+  const [selectedSource, setSelectedSource] = useState<ListSelectOption | null>(
+    null
+  );
 
   const {
     register: formRegister,
@@ -21,7 +39,6 @@ const AddNewLeadModal = () => {
 
   const onSubmit: SubmitHandler<INewLeadDto> = (data) => {
     console.log(data);
-    // signIn(data);
   };
 
   return (
@@ -91,7 +108,12 @@ const AddNewLeadModal = () => {
                 <div className="label">
                   <span className="label-text">Партнёры</span>
                 </div>
-                <input
+                <ListSelect
+                  options={partners}
+                  selected={selectedPartner}
+                  setSelected={setSelectedPartner}
+                />
+                {/* <input
                   {...formRegister("partners", {
                     required: "partners is required",
                   })}
@@ -101,22 +123,16 @@ const AddNewLeadModal = () => {
                     errors.partners && "input-error"
                   } w-full`}
                   placeholder=""
-                />
+                /> */}
               </label>
               <label className="form-control w-full">
                 <div className="label">
                   <span className="label-text">Источник</span>
                 </div>
-                <input
-                  {...formRegister("source", {
-                    required: "source is required",
-                  })}
-                  id="source"
-                  type="text"
-                  className={`input input-bordered ${
-                    errors.source && "input-error"
-                  } w-full`}
-                  placeholder=""
+                <ListSelect
+                  options={sources}
+                  selected={selectedSource}
+                  setSelected={setSelectedSource}
                 />
               </label>
               <label className="form-control w-full">

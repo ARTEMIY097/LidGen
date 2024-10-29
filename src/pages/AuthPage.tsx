@@ -1,21 +1,20 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { observer } from "mobx-react-lite";
 import { useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { AuthStoreContext } from "../store/AuthStore";
+import { AuthContext } from "../providers/AuthProvider";
 
-const AuthPage = observer(() => {
+const AuthPage = () => {
   const [parent] = useAutoAnimate();
-  const { isAuth } = useContext(AuthStoreContext);
+  const { isAuth } = useContext(AuthContext);
   const navigate = useNavigate();
-  if (!isAuth())
-    return (
-      <div ref={parent}>
-        <Outlet />
-      </div>
-    );
-  else navigate("/");
-  return null;
-});
+  
+  if (isAuth) navigate("/");
+
+  return (
+    <div ref={parent}>
+      <Outlet />
+    </div>
+  );
+};
 
 export default AuthPage;

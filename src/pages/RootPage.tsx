@@ -1,32 +1,31 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import SideBarComponent from "../components/layout/SideBar/SideBarComponent";
 import HeaderComponent from "../components/layout/Header/HeaderComponent";
-import { observer } from "mobx-react-lite";
-// import { useUser } from "../queries/UserQueries";
-// import { useContext } from "react";
-// import { AuthStoreContext } from "../store/AuthStore";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
-const RootPage = observer(() => {
+const RootPage = () => {
   const [parent] = useAutoAnimate();
-  // const authStore = useContext(AuthStoreContext);
-  // const navigate = useNavigate();
-  // useUser();
-
-  // if (query.isError) {
-  //   navigate("/sign_up");
-  //   return null;
-  // }
+  const navigate = useNavigate();
+  const { isAuth } = useContext(AuthContext);
+  
+  if (!isAuth) {
+    navigate("/sign_in");
+  }
 
   return (
     <div className="flex min-h-screen max-h-screen">
       <SideBarComponent />
-      <div ref={parent} className="flex flex-col w-full overflow-scroll bg-white">
+      <div
+        ref={parent}
+        className="flex flex-col w-full overflow-scroll bg-white"
+      >
         <HeaderComponent />
         <Outlet />
       </div>
     </div>
   );
-});
+};
 
 export default RootPage;

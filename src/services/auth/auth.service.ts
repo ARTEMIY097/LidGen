@@ -7,7 +7,7 @@ const PATH = "/auth";
 const { buildUrl } = new UrlBuilder(PATH);
 
 export const AuthService = {
-  async signUp(data: ISignUpDto, role: string){
+  async signUp(data: ISignUpDto, role: string) {
     return await instance
       .post<IAuthResponse>(buildUrl(`/signup/${role}`), data)
       .then((response) => response.data);
@@ -24,14 +24,18 @@ export const AuthService = {
       method: "POST",
       url: buildUrl("/refresh"),
       headers: { Authorization: `Bearer ${token}` },
-      baseURL: "http://127.0.0.1:8000/api",
+      baseURL: import.meta.env.VITE_BACK_URL,
       withCredentials: true,
     }).then((response) => response.data);
   },
 
-  async logout() {
-    return await instance
-      .post(buildUrl("/logout"))
-      .then((response) => response.data);
+  async logout(token: string | null) {
+    return await axios({
+      method: "POST",
+      url: buildUrl("/logout"),
+      headers: { Authorization: `Bearer ${token}` },
+      baseURL: import.meta.env.VITE_BACK_URL,
+      withCredentials: true,
+    }).then((response) => response.data);
   },
 };

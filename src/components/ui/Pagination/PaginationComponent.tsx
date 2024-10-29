@@ -1,5 +1,7 @@
 // interface IProps = {}
 
+import { memo } from "react";
+
 const PaginationComponent = () => {
   return (
     <div className="join">
@@ -14,4 +16,4 @@ const PaginationComponent = () => {
   );
 };
 
-export default PaginationComponent;
+export default memo(PaginationComponent);

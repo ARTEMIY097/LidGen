@@ -1,5 +1,3 @@
-import { authStore } from "../store/AuthStore";
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const errorCatch = (error: any): string => {
   const msg = error?.response?.data?.message;
@@ -10,12 +8,12 @@ export const errorCatch = (error: any): string => {
     : error.message;
 };
 
-// export const getContentType = () => ({
-//   "Content-Type": "application/json",
-// });
+export const getContentType = () => ({
+  "Content-Type": "application/json",
+});
 
 export const storage = {
-  getToken: () => authStore.getToken(),
-  setToken: (token: string) => authStore.setToken(token),
-  clearToken: () => authStore.clearToken(),
+  getToken: () => localStorage.getItem("token") || null,
+  setToken: (token: string) => localStorage.setItem("token", token),
+  clearToken: () => localStorage.removeItem("token"),
 };
