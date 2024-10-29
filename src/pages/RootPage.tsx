@@ -10,9 +10,9 @@ const RootPage = () => {
   const navigate = useNavigate();
   const { isAuth } = useContext(AuthContext);
   
-  if (!isAuth) {
-    navigate("/sign_in");
-  }
+  // if (!isAuth) {
+  //   navigate("/sign_in");
+  // }
 
   return (
     <div className="flex min-h-screen max-h-screen">
